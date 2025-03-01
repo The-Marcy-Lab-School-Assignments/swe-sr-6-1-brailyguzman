@@ -10,6 +10,37 @@ In your response, make sure to compare the time complexities for insertion, remo
 
 ### Response 1
 
+Before we choose which data structure we are going to use, we need to understand the differences and which is better at what.
+
+#### Structural Differences
+
+-   **Array**: A **contiguous** block of memory where each element is stored next to the other. This allows **fast random access with an O(1) time complexity** using an index but makes insertions and deletions costly because elements must be shifted.
+-   **Linked List**: A collection of **nodes**, where each node contains a value and a pointer to the next node. Since elements are not stored contiguously, random access is **slow O(n)**, but insertions and deletions are generally more efficient.
+
+#### Operations and Time Complexities
+
+| Operation        | Array (Time Complexity)                      | Linked List (Time Complexity)             |
+| ---------------- | -------------------------------------------- | ----------------------------------------- |
+| Access Index     | O(1) Direct access with index                | O(n) Traversal is required                |
+| Search Unsorted  | O(n) Linear Search                           | O(n) Linear Search                        |
+| Insert Beginning | O(n) (Shifting Required)                     | O(1) Update head pointer                  |
+| Insert End       | O(1) (If capacity allows) or O(n) (resizing) | O(n) Traversal to the end                 |
+| Insert Middle    | O(n) (Shifting elements)                     | O(n) Traversal is required                |
+| Delete Beginning | O(n) (Shifting elements)                     | O(1) Update head pointer                  |
+| Delete End       | O(1) (If no shifting is needed)              | O(n)                                      |
+| Delete Middle    | O(n) (Shifting elements)                     | O(n) (Traversal to find and update links) |
+
+#### When to use Which Data Structure?
+
+-   Use an **Array** when:
+    -   You need **fast random access** to elements.
+    -   The size of the dataset is **fixed or rarely changes**
+    -   Insertions and deletions **are infrequent**.
+-   Use a **Linked List** when:
+    -   Insertions and deletions are **frequent**, especially in the **beginning or middle**.
+    -   You don't need **fast random access**.
+    -   Memory reallocation is a concern, as linked lists can grow dynamically.
+
 ## Prompt 2
 
 Imagine you are developing a web browser's "back" button functionality. When a user clicks "back," the browser should navigate to the previously visited webpage.
@@ -33,6 +64,17 @@ This LIFO behavior ensures that the last page visited is always the first one re
 What is an Abstract Data Type and why are they worth learning about?
 
 ### Response 3
+
+An **Abstract Data Type (ADT)** is a concept that defines a data structure by specifying **what operations** can be performed on it, without specifying **how** those operations are implemented. It focuses on behavior rather than implementation.
+
+A good way to think of it is as a blueprint or interface. ADTs tell you what a data structure should do but not how it's built internally.
+
+For example:
+
+-   **A Stack ADT** supports operations like `push()`, `pop()`, and `peek()`, but it doesn't specify whether it's implemented using an array or a linked list.
+-   A **Queue ADT** defines operations like `enqueue()` and `dequeue()`, without dictating the internal storage method.
+
+They are worth learning about because they provide **abstraction**, allowing you to focus on **what a data structure does** rather than **how it is implemented**. This improves **problem-solving skills**, helps in **choosing the right data structure**, makes code more **modular and reusable**, and serves as a **foundation for advanced algorithms and data structures**.
 
 ## Prompt 4
 
@@ -65,17 +107,17 @@ This is the approach we will follow:
 
 ```js
 const isBalancedParentheses = (inputString) => {
-  const stack = [];
+    const stack = [];
 
-  for (const char of inputString) {
-    if (char === "(") stack.push(char);
-    else if (char === ")") {
-      if (stack.length === 0) return false; // Found a closing ) without an opening (
-      stack.pop();
+    for (const char of inputString) {
+        if (char === '(') stack.push(char);
+        else if (char === ')') {
+            if (stack.length === 0) return false; // Found a closing ) without an opening (
+            stack.pop();
+        }
     }
-  }
 
-  return stack.length === 0; // If stack is empty, everything matched up!
+    return stack.length === 0; // If stack is empty, everything matched up!
 };
 ```
 
